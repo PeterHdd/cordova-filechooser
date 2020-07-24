@@ -23,6 +23,12 @@ fileChooser.open(successCallback. failureCallback); // without mime filter
 { "mime": "application/pdf" }  // text/plain, image/png, image/jpeg, audio/wav etc
 ```
 
+You can use multiple mime types, example:
+
+```
+{ "mime": "image/jpeg, application/pdf" };
+```
+
 The success callback gets the uri of the selected file
 
 ```javascript
