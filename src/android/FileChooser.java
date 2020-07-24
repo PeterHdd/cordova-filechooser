@@ -36,11 +36,19 @@ public class FileChooser extends CordovaPlugin {
 
     public void chooseFile(JSONObject filter, CallbackContext callbackContext) {
         String uri_filter = filter.has(MIME) ? filter.optString(MIME) : "*/*";
-
-        // type and title should be configurable
-
+        System.out.println(filter.optString(MIME));
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType(uri_filter);
+        String[] arrOfTypes = null;
+
+        if(uri_filter.contains(",")) {
+            String typeFilter = uri_filter.replaceAll("\\s","");
+            arrOfTypes = typeFilter.split(",");
+            intent.setType("*/*");
+            intent.putExtra(Intent.EXTRA_MIME_TYPES,arrOfTypes);
+        }
+        else {
+            intent.setType(uri_filter);
+        }
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
 
